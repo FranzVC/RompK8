@@ -85,6 +85,22 @@ class AgenteRK8(AgenteBuscador):
     #     hasta donde debería estar
     # h3: Formular heuristica que supere el rendimiento de las anteriores,
     #
+    def find_num(self,camino,num):
+        for i in range(3):
+            for j in range(3):
+                if camino[i][j] == num:
+                    return ((i,j))
 
+    def cant(self, camino, actual, esperado):
+        if camino[actual[0]][actual[1]] != camino[esperado[0]][esperado[1]]:
+            if (actual[0]+actual[1]) == (esperado[0]+esperado[1]):
+                return (esperado[0]+esperado[1]) + (actual[0]+actual[1])
+            elif (actual[0]+actual[1]) > (esperado[0]+esperado[1]):
+                return (actual[0]+actual[1])- (esperado[0]+esperado[1])
+            else:
+                return (esperado[0]+esperado[1]) - (actual[0]+actual[1])
+        else:
+            return 0
+            
     def get_funcion_a(self, camino):
         return self.get_costo(camino) + self.get_heuristica(camino)
